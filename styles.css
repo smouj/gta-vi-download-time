@@ -58,7 +58,7 @@ a { color: inherit; }
 .eyebrow { display: flex; align-items: center; gap: 11px; }
 .eyebrow-line { display: inline-block; width: 27px; height: 1px; background: var(--pink); }
 h1, h2, h3, p { margin-top: 0; }
-h1 { max-width: 580px; margin-bottom: 20px; margin-top: 22px; font-family: var(--display); font-size: clamp(57px, 6.8vw, 90px); font-stretch: condensed; font-weight: 700; letter-spacing: -3px; line-height: .91; text-transform: uppercase; }
+h1 { max-width: 580px; margin-bottom: 20px; margin-top: 22px; font-family: var(--display); font-size: clamp(54px, 5.4vw, 72px); font-stretch: condensed; font-weight: 700; letter-spacing: -3px; line-height: .91; text-transform: uppercase; }
 h1 em, h2 em { color: var(--pink-light); font-style: normal; }
 .hero-description { max-width: 415px; margin-bottom: 25px; color: #d1ced3; font-size: 16px; line-height: 1.7; }
 .text-link { display: inline-flex; align-items: center; gap: 12px; color: #fff; font-size: 12px; font-weight: 700; text-decoration: none; border-bottom: 1px solid rgba(255,106,181,.65); padding-bottom: 8px; transition: gap .2s ease, color .2s ease; }
@@ -290,7 +290,7 @@ html.reveal-motion .reveal-item.is-visible { opacity: 1; transform: translateY(0
   .section-wrap, .topbar, .hero-content, .trust-strip { width: min(100% - 48px, 800px); }
   .hero { min-height: auto; }
   .hero-content { grid-template-columns: minmax(0, .9fr) minmax(340px, 1.1fr); gap: 38px; padding-block: 66px 88px; }
-  h1 { font-size: clamp(51px, 7vw, 74px); }
+  h1 { font-size: clamp(51px, 5.8vw, 62px); }
   .hero-caption { right: 24px; left: 24px; }
   .main-nav { gap: 20px; }
   .wallpaper-grid { grid-template-columns: repeat(2, 1fr); }
@@ -319,7 +319,7 @@ html.reveal-motion .reveal-item.is-visible { opacity: 1; transform: translateY(0
   .hero-content { grid-template-columns: 1fr; gap: 32px; padding-block: 48px 86px; }
   .hero-copy { max-width: 500px; padding: 0; }
   .eyebrow { font-size: 8px; letter-spacing: 1.7px; }
-  h1 { margin-top: 18px; margin-bottom: 14px; font-size: clamp(54px, 13vw, 77px); letter-spacing: -2px; }
+  h1 { margin-top: 18px; margin-bottom: 14px; font-size: clamp(42px, 11vw, 60px); letter-spacing: -2px; }
   .hero-description { max-width: 360px; margin-bottom: 18px; font-size: 13px; line-height: 1.6; }
   .hero-link { font-size: 10px; }
   .hero-footnote { margin-top: 20px; font-size: 9px; }
@@ -396,3 +396,4 @@ html.reveal-motion .reveal-item.is-visible { opacity: 1; transform: translateY(0
   .hero-vi-mark { animation: none !important; transform: translate3d(0, -50%, 0) !important; translate: none !important; will-change: auto; }
   html.reveal-motion .reveal-item, html.reveal-motion .reveal-item.is-visible { opacity: 1; transform: none; transition: none; }
 }
+
