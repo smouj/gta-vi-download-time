@@ -15,20 +15,22 @@ Calculadora web gratuita en español para estimar cuánto tardaría una descarga
 
 ## Funciones
 
-- Estima el tiempo de descarga con tamaño editable, unidades GB/TB y velocidades Mbps/Gbps.
-- Ajusta el rendimiento de la conexión para aproximar la velocidad sostenida.
+- Detecta la velocidad de descarga con un solo botón y calcula la estimación al momento.
+- Permite cambiar el tamaño estimado del juego y elegir GB o TB.
+- Aplica un 85% de la velocidad medida para aproximar las variaciones habituales de una descarga sostenida.
 - Comparte un enlace con los valores del cálculo.
 - Genera y descarga un pase de embarque PNG hacia Leonida, con tiempo estimado, número de serie, origen y datos de conexión.
 - Permite subir una foto, guardada en el almacenamiento local del navegador, o buscar un avatar público de X/Instagram al solicitarlo.
 - Incluye fondos y enlaces a la información oficial y a las fuentes del tamaño de referencia.
 - Añade movimiento parallax, microanimaciones y apariciones al desplazarse; respeta la preferencia de movimiento reducido.
-- No usa analítica ni envía los datos del cálculo a un servidor.
+- No inicia la medición hasta pulsar el botón. La prueba descarga hasta unos 51 MB desde [Cloudflare Speed Test](https://speed.cloudflare.com/); Cloudflare recibe las solicitudes y la dirección IP necesaria para servirlas.
+- El cálculo, el nombre, el origen y el billete se procesan en el navegador. La web no envía esos datos a un servidor ni usa analítica propia.
 
 ## Cómo se calcula
 
-`segundos = (tamaño en GB × 8.000) ÷ velocidad efectiva en Mbps`
+`segundos estimados = (tamaño en GB × 8.000) ÷ (velocidad medida en Mbps × 0,85)`
 
-Se usa GB decimal (`1 GB = 1.000.000.000 bytes`). La velocidad efectiva es la velocidad indicada multiplicada por el rendimiento elegido. El resultado es orientativo y no incluye instalación, descompresión, actualizaciones ni variaciones de red.
+Se usa GB decimal (`1 GB = 1.000.000.000 bytes`). La estimación usa el 85% de la velocidad medida para dejar margen a variaciones de red y del servidor. El resultado es orientativo: el servidor de descarga del juego puede ofrecer otro rendimiento y el cálculo no incluye instalación, descompresión ni actualizaciones.
 
 ## Tamaño de referencia
 
@@ -36,7 +38,8 @@ El valor inicial de 210 GB procede de un [reporte de GamesRadar](https://www.gam
 
 ## Privacidad de fotos
 
-- El nombre, el origen, la velocidad y el tamaño se usan en la página y al generar el billete; no se guardan ni se envían.
+- El nombre, el origen, la velocidad y el tamaño se usan en la página y al generar el billete; no se guardan ni se envían desde esta web.
+- La medición solo comienza al pulsar el botón. Envía solicitudes de descarga a Cloudflare Speed Test; Cloudflare recibe la dirección IP y los datos técnicos necesarios para atender la solicitud. La prueba no envía el tamaño del juego, el nombre, el origen ni el billete.
 - Una foto subida se recorta y comprime en el navegador. Se guarda en el almacenamiento local de ese dispositivo para reutilizarla; se elimina con **Quitar foto** o al borrar los datos del sitio.
 - Si se pulsa **Detectar foto**, el nombre de usuario se consulta mediante [Unavatar](https://unavatar.io/docs), un servicio externo que busca avatares públicos de X o Instagram. Esa consulta puede revelar al servicio qué perfil se está buscando y depende de la disponibilidad y los límites de Unavatar.
 - El PNG del billete se genera en el navegador. No se sube al repositorio ni a un servidor.
@@ -54,3 +57,4 @@ Abre `index.html` o sirve esta carpeta con un servidor estático. No hay depende
 ## Licencia
 
 El código del proyecto se distribuye bajo MIT; consulta [LICENSE](LICENSE). Las marcas y el arte de GTA VI no están cubiertos por esa licencia.
+

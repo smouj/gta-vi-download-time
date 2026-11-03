@@ -1,9 +1,11 @@
 (() => {
   const sizeInput = document.querySelector("#size-input");
   const sizeUnit = document.querySelector("#size-unit");
-  const speedInput = document.querySelector("#speed-input");
-  const speedUnit = document.querySelector("#speed-unit");
-  const efficiencyInput = document.querySelector("#efficiency-input");
+  const measureSpeedButton = document.querySelector("#measure-speed");
+  const measureSpeedLabel = document.querySelector("#measure-speed-label");
+  const detectedSpeed = document.querySelector("#detected-speed");
+  const speedTestStatus = document.querySelector("#speed-test-status");
+  const calculatorActions = document.querySelector("#calculator-actions");
   const efficiencyValue = document.querySelector("#efficiency-value");
   const resultEfficiency = document.querySelector("#result-efficiency");
   const resultTime = document.querySelector("#result-time");
@@ -11,7 +13,6 @@
   const idealTime = document.querySelector("#ideal-time");
   const resultSummary = document.querySelector("#result-summary");
   const resultThroughput = document.querySelector("#result-throughput");
-  const presetButtons = [...document.querySelectorAll("[data-speed]")];
   const copyButton = document.querySelector("#copy-button");
   const copyLabel = document.querySelector("#copy-label");
   const copyFeedback = document.querySelector("#copy-feedback");
@@ -41,7 +42,13 @@
   const AVATAR_STORAGE_KEY = "gta-vi-download-time:ticket-avatar:v1";
   const SERIAL_STORAGE_KEY = "gta-vi-download-time:ticket-serial:v1";
   const AVATAR_PLACEHOLDER = "assets/avatar-placeholder.svg";
+  const DEFAULT_EFFICIENCY = 85;
+  const SPEED_TEST_ENDPOINT = "https://speed.cloudflare.com/__down";
+  const MAX_PROBE_BYTES = 25_000_000;
+  const FIRST_PROBE_BYTES = 250_000;
   let currentAvatarData = "";
+  let measuredSpeedMbps = 0;
+  let isMeasuringSpeed = false;
 
   const params = new URLSearchParams(window.location.search);
   const initial = {
@@ -54,9 +61,17 @@
 
   if (isPositive(initial.size)) sizeInput.value = clamp(Number(initial.size), 1, 100000);
   if (["GB", "TB"].includes(initial.sizeUnit)) sizeUnit.value = initial.sizeUnit;
-  if (isPositive(initial.speed)) speedInput.value = clamp(Number(initial.speed), 1, 100000);
-  if (["Mbps", "Gbps"].includes(initial.speedUnit)) speedUnit.value = initial.speedUnit;
-  if (isPositive(initial.efficiency)) efficiencyInput.value = clamp(Number(initial.efficiency), 50, 100);
+  if (isPositive(initial.speed)) {
+    const initialSpeed = Number(initial.speed) * (initial.speedUnit === "Gbps" ? 1000 : 1);
+    measuredSpeedMbps = clamp(initialSpeed, 0.1, 100000);
+  }
+  const currentEfficiency = isPositive(initial.efficiency)
+    ? clamp(Number(initial.efficiency), 50, 100)
+    : DEFAULT_EFFICIENCY;
+  if (measuredSpeedMbps > 0) {
+    speedTestStatus.dataset.state = "success";
+    speedTestStatus.textContent = `Velocidad del cálculo compartido: ${formatSpeed(measuredSpeedMbps)}. Pulsa para medir esta conexión.`;
+  }
 
   function isPositive(value) {
     return value !== null && value.trim() !== "" && Number.isFinite(Number(value)) && Number(value) > 0;
@@ -68,6 +83,11 @@
 
   function formatNumber(value, maximumFractionDigits = 0) {
     return new Intl.NumberFormat("es-ES", { maximumFractionDigits }).format(value);
+  }
+
+  function formatSpeed(speedInMbps) {
+    if (speedInMbps >= 1000) return `${formatNumber(speedInMbps / 1000, 2)} Gbps`;
+    return `${formatNumber(speedInMbps, speedInMbps < 10 ? 2 : 0)} Mbps`;
   }
 
   function formatDuration(seconds) {
@@ -90,12 +110,13 @@
 
   function getState() {
     const size = clamp(Number(sizeInput.value) || 1, 1, 100000);
-    const speed = clamp(Number(speedInput.value) || 1, 1, 100000);
-    const efficiency = clamp(Number(efficiencyInput.value) || 85, 50, 100);
+    const speedInMbps = measuredSpeedMbps;
+    const speedUnit = speedInMbps >= 1000 ? "Gbps" : "Mbps";
+    const speed = speedUnit === "Gbps" ? speedInMbps / 1000 : speedInMbps;
+    const efficiency = currentEfficiency;
     const sizeInGb = size * (sizeUnit.value === "TB" ? 1000 : 1);
-    const speedInMbps = speed * (speedUnit.value === "Gbps" ? 1000 : 1);
-    const idealSeconds = (sizeInGb * 8000) / speedInMbps;
-    const realSeconds = idealSeconds / (efficiency / 100);
+    const idealSeconds = speedInMbps > 0 ? (sizeInGb * 8000) / speedInMbps : Number.NaN;
+    const realSeconds = speedInMbps > 0 ? idealSeconds / (efficiency / 100) : Number.NaN;
     return { size, sizeInGb, sizeUnit: sizeUnit.value, speed, speedInMbps, speedUnit: speedUnit.value, efficiency, idealSeconds, realSeconds };
   }
 
@@ -147,8 +168,8 @@
     if (!ticketTime) return;
     const name = passengerInput.value.trim() || "Viajero/a";
     const origin = originInput.value.trim() || "Mi conexión";
-    const speedLabel = `${formatNumber(state.speed, state.speedUnit === "Gbps" ? 2 : 0)} ${state.speedUnit}`;
-    ticketTime.textContent = formatDuration(state.realSeconds);
+    const speedLabel = state.speedInMbps > 0 ? formatSpeed(state.speedInMbps) : "Sin medir";
+    ticketTime.textContent = state.speedInMbps > 0 ? formatDuration(state.realSeconds) : "Pendiente";
     ticketSize.textContent = prettySize(state.size, state.sizeUnit);
     ticketSpeed.textContent = speedLabel;
     ticketEfficiency.textContent = `${state.efficiency}%`;
@@ -176,21 +197,25 @@
   let lastDisplayedTime = resultTime.textContent;
   function update() {
     const state = getState();
+    const hasMeasurement = state.speedInMbps > 0;
     const effectiveMbps = state.speedInMbps * (state.efficiency / 100);
     const effectiveMBps = effectiveMbps / 8;
     const formattedEfficiency = `${state.efficiency}%`;
-    const formattedSpeed = `${formatNumber(state.speed, state.speedUnit === "Gbps" ? 2 : 0)} ${state.speedUnit}`;
+    const formattedSpeed = hasMeasurement ? formatSpeed(state.speedInMbps) : "sin medir";
     const formattedSize = prettySize(state.size, state.sizeUnit);
-    const practical = formatDuration(state.realSeconds);
-    const ideal = formatDuration(state.idealSeconds);
+    const practical = hasMeasurement ? formatDuration(state.realSeconds) : "—";
+    const ideal = hasMeasurement ? formatDuration(state.idealSeconds) : "—";
 
     sizeInput.value = String(state.size);
-    speedInput.value = String(state.speed);
-    efficiencyInput.value = String(state.efficiency);
+    detectedSpeed.textContent = hasMeasurement ? formattedSpeed : "Sin medir";
+    measureSpeedButton.disabled = isMeasuringSpeed;
+    measureSpeedLabel.textContent = isMeasuringSpeed
+      ? "Midiendo tu conexión…"
+      : hasMeasurement ? "Volver a medir y calcular" : "Detectar velocidad y calcular";
     efficiencyValue.value = formattedEfficiency;
     efficiencyValue.textContent = formattedEfficiency;
     resultEfficiency.textContent = formattedEfficiency;
-    if (practical !== lastDisplayedTime) {
+    if (hasMeasurement && practical !== lastDisplayedTime) {
       resultTime.classList.remove("result-updated");
       void resultTime.offsetWidth;
       resultTime.classList.add("result-updated");
@@ -198,33 +223,90 @@
       lastDisplayedTime = practical;
     }
     resultTime.textContent = practical;
-    practicalTime.textContent = practical;
+    practicalTime.textContent = hasMeasurement ? practical : "Pendiente";
     idealTime.textContent = ideal;
-    resultSummary.textContent = `${formattedSize} a ${formattedSpeed}`;
-    resultThroughput.textContent = `${formatNumber(effectiveMBps, effectiveMBps < 10 ? 1 : 0)} MB/s efectivos`;
-    shareLink.href = createShareUrl(state);
-    shareLink.setAttribute("aria-label", `Compartir cálculo de ${practical}`);
-
-    presetButtons.forEach((button) => {
-      const isSelected = Number(button.dataset.speed) === state.speed && button.dataset.unit === state.speedUnit;
-      button.classList.toggle("is-selected", isSelected);
-      button.setAttribute("aria-pressed", String(isSelected));
-    });
+    resultSummary.textContent = hasMeasurement ? `${formattedSize} a ${formattedSpeed}` : `${formattedSize} · mide tu conexión`;
+    resultThroughput.textContent = hasMeasurement
+      ? `${formatNumber(effectiveMBps, effectiveMBps < 10 ? 1 : 0)} MB/s efectivos`
+      : "Pendiente de medición";
+    calculatorActions.hidden = !hasMeasurement;
+    ticketDownloadButton.disabled = !hasMeasurement;
+    if (hasMeasurement) {
+      shareLink.href = createShareUrl(state);
+      shareLink.setAttribute("aria-label", `Compartir cálculo de ${formatDuration(state.realSeconds)}`);
+    }
     syncTicket(state);
   }
 
-  [sizeInput, sizeUnit, speedInput, speedUnit, efficiencyInput].forEach((control) => {
+  [sizeInput, sizeUnit].forEach((control) => {
     control.addEventListener("input", update);
     control.addEventListener("change", update);
   });
 
-  presetButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      speedInput.value = button.dataset.speed;
-      speedUnit.value = button.dataset.unit;
-      update();
-      speedInput.focus({ preventScroll: true });
+  async function downloadSpeedProbe(requestedBytes, signal) {
+    const url = new URL(SPEED_TEST_ENDPOINT);
+    url.searchParams.set("bytes", String(requestedBytes));
+    url.searchParams.set("cacheBust", `${Date.now()}-${Math.random().toString(36).slice(2)}`);
+    const startedAt = performance.now();
+    const response = await fetch(url, {
+      cache: "no-store",
+      credentials: "omit",
+      mode: "cors",
+      referrerPolicy: "no-referrer",
+      signal,
     });
+    if (!response.ok) throw new Error(`El servidor de medición respondió ${response.status}.`);
+    const data = await response.arrayBuffer();
+    const seconds = (performance.now() - startedAt) / 1000;
+    if (!data.byteLength || seconds <= 0) throw new Error("La prueba no recibió datos suficientes.");
+    return { bytes: data.byteLength, seconds, mbps: (data.byteLength * 8) / seconds / 1_000_000 };
+  }
+
+  async function measureDownloadSpeed(onProgress) {
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 30_000);
+    try {
+      const first = await downloadSpeedProbe(FIRST_PROBE_BYTES, controller.signal);
+      if (navigator.connection?.saveData || first.seconds >= 0.9) return first;
+
+      onProgress("Ajustando la medición con una descarga algo mayor…");
+      const targetBytes = (mbps) => Math.min(MAX_PROBE_BYTES, Math.max(FIRST_PROBE_BYTES, Math.round(mbps * 112_500)));
+      const second = await downloadSpeedProbe(targetBytes(first.mbps), controller.signal);
+      if (second.seconds >= 0.65) return second;
+
+      onProgress("Comprobando la estabilidad de la velocidad…");
+      const third = await downloadSpeedProbe(targetBytes(second.mbps), controller.signal);
+      return {
+        bytes: second.bytes + third.bytes,
+        seconds: second.seconds + third.seconds,
+        mbps: ((second.bytes + third.bytes) * 8) / (second.seconds + third.seconds) / 1_000_000,
+      };
+    } finally {
+      window.clearTimeout(timeoutId);
+    }
+  }
+
+  measureSpeedButton.addEventListener("click", async () => {
+    if (isMeasuringSpeed) return;
+    isMeasuringSpeed = true;
+    speedTestStatus.dataset.state = "";
+    speedTestStatus.textContent = "Midiendo la descarga hacia Cloudflare…";
+    update();
+    try {
+      const result = await measureDownloadSpeed((message) => { speedTestStatus.textContent = message; });
+      measuredSpeedMbps = clamp(result.mbps, 0.1, 100_000);
+      speedTestStatus.dataset.state = "success";
+      speedTestStatus.textContent = `Velocidad medida: ${formatSpeed(measuredSpeedMbps)}. El resultado puede variar según la red y el servidor del juego.`;
+      update();
+    } catch (error) {
+      speedTestStatus.dataset.state = "error";
+      speedTestStatus.textContent = error.name === "AbortError"
+        ? "La medición superó los 30 segundos. Revisa la conexión y vuelve a intentarlo."
+        : `No se pudo medir la velocidad. ${error.message || "Revisa la conexión y vuelve a intentarlo."}`;
+    } finally {
+      isMeasuringSpeed = false;
+      update();
+    }
   });
 
   function saveAvatar(dataUrl, message) {
@@ -455,7 +537,7 @@
 
     const name = passengerInput.value.trim() || "Viajero/a";
     const origin = originInput.value.trim() || "Mi conexión";
-    const speed = `${formatNumber(state.speed, state.speedUnit === "Gbps" ? 2 : 0)} ${state.speedUnit}`;
+    const speed = formatSpeed(state.speedInMbps);
     const time = formatDuration(state.realSeconds);
     const drawLabel = (text, px, py, color = "#8d8993", size = 16) => {
       context.fillStyle = color;
@@ -591,7 +673,7 @@
 
   copyButton.addEventListener("click", async () => {
     const state = getState();
-    const text = `GTA VI: estimación de descarga de ${prettySize(state.size, state.sizeUnit)} en ${formatDuration(state.realSeconds)} con ${formatNumber(state.speed, state.speedUnit === "Gbps" ? 2 : 0)} ${state.speedUnit} (${state.efficiency}% de rendimiento). ${createShareUrl(state)}`;
+    const text = `GTA VI: estimación de descarga de ${prettySize(state.size, state.sizeUnit)} en ${formatDuration(state.realSeconds)} con ${formatSpeed(state.speedInMbps)} (${state.efficiency}% de rendimiento). ${createShareUrl(state)}`;
     try {
       await navigator.clipboard.writeText(text);
       copyLabel.textContent = "Copiado";
@@ -674,3 +756,4 @@
     revealItems.forEach((item) => revealObserver.observe(item));
   }
 })();
+

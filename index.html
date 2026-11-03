@@ -4,18 +4,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#090a0f" />
-    <meta name="description" content="Calcula cuánto tardaría en descargar GTA VI según el tamaño del juego y tu velocidad de Internet. Gratis, rápido y sin instalación." />
+    <meta name="description" content="Mide tu velocidad de descarga con un clic y calcula cuánto tardaría GTA VI. Gratis y sin instalación." />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="¿Cuánto tardaría en descargar GTA VI?" />
-    <meta property="og:description" content="Introduce el tamaño del juego y tu velocidad para estimar el tiempo de descarga." />
+    <meta property="og:description" content="Mide tu velocidad de descarga con un clic y calcula el tiempo estimado." />
     <meta property="og:image" content="https://www.rockstargames.com/VI/_next/static/media/Jason_and_Lucia_Beach_landscape.0419q._86ukpt.jpg?akim=1&amp;imdensity=1&amp;imwidth=1600" />
     <meta property="og:url" content="https://smouj.github.io/gta-vi-download-time/" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" type="image/png" href="assets/gta-vi-logo.png" />
     <link rel="canonical" href="https://smouj.github.io/gta-vi-download-time/" />
     <link rel="preconnect" href="https://www.rockstargames.com" />
-    <link rel="stylesheet" href="styles.css?v=20261103-05" />
-    <script src="app.js?v=20261103-05" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20261103-06" />
+    <script src="app.js?v=20261103-06" defer></script>
     <title>¿Cuánto tardaría en descargar GTA VI? | Calculadora</title>
   </head>
   <body>
@@ -50,8 +50,8 @@
             <div class="hero-copy">
               <p class="eyebrow"><span class="eyebrow-line"></span> ESTIMADOR DE DESCARGA · GRAND THEFT AUTO VI</p>
               <h1 id="hero-title">¿Cuánto tardaría<br />en descargar<br /><em>GTA VI?</em></h1>
-              <p class="hero-description">Introduce tu velocidad de Internet y calcula cuánto podría tardar una descarga de este tamaño. El resultado se actualiza al instante.</p>
-              <a class="text-link hero-link" href="#calculadora">Calcula tu descarga <span aria-hidden="true">↓</span></a>
+              <p class="hero-description">Mide la velocidad de descarga de tu conexión y calcula al momento cuánto tardaría un archivo de este tamaño.</p>
+              <a class="text-link hero-link" href="#calculadora">Medir y calcular <span aria-hidden="true">↓</span></a>
               <div class="hero-footnote">
                 <span class="footnote-icon" aria-hidden="true">✳</span>
                 <span>210 GB es una referencia provisional; puedes editar el tamaño en la calculadora.</span>
@@ -61,7 +61,7 @@
             <section class="calculator-card" id="calculadora" aria-labelledby="calculator-title">
               <div class="calculator-heading">
                 <div>
-                  <p class="card-kicker">ESTIMADOR DE DESCARGA <span class="live-pill"><span></span> EN VIVO</span></p>
+                  <p class="card-kicker">ESTIMADOR DE DESCARGA <span class="live-pill"><span></span> UN CLIC</span></p>
                   <h2 id="calculator-title">Tu tiempo en Vice City</h2>
                 </div>
                 <img class="calculator-stamp" src="assets/gta-vi-logo.png" alt="" aria-hidden="true" />
@@ -83,36 +83,25 @@
                 <p class="field-hint" id="size-hint"><span class="hint-icon" aria-hidden="true">↳</span> Puedes cambiarlo cuando tu plataforma anuncie el tamaño final.</p>
               </div>
 
-              <div class="field-block speed-block">
-                <div class="field-label-line">
-                  <label for="speed-input">Velocidad de descarga</label>
-                  <span class="speed-badge">TU CONEXIÓN</span>
+              <div class="speed-test-block">
+                <div class="speed-test-meta">
+                  <span>VELOCIDAD DETECTADA</span>
+                  <strong id="detected-speed">Sin medir</strong>
                 </div>
-                <div class="input-shell speed-input-shell">
-                  <input id="speed-input" name="speed" type="number" min="1" max="100000" step="1" value="300" inputmode="decimal" aria-describedby="speed-hint" />
-                  <label class="visually-hidden" for="speed-unit">Unidad de velocidad</label>
-                  <select id="speed-unit" name="speed-unit" aria-label="Unidad de velocidad">
-                    <option value="Mbps" selected>Mbps</option>
-                    <option value="Gbps">Gbps</option>
-                  </select>
-                </div>
-                <div class="speed-presets" aria-label="Velocidades habituales">
-                  <button type="button" data-speed="100" data-unit="Mbps">100 Mbps</button>
-                  <button type="button" data-speed="300" data-unit="Mbps" class="is-selected">300 Mbps</button>
-                  <button type="button" data-speed="600" data-unit="Mbps">600 Mbps</button>
-                  <button type="button" data-speed="1" data-unit="Gbps">1 Gbps</button>
-                </div>
-                <p class="field-hint" id="speed-hint">La velocidad contratada puede variar respecto a la real.</p>
+                <button class="measure-button" id="measure-speed" type="button" aria-describedby="speed-test-note speed-test-status">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18a8 8 0 1 1 16 0M12 14l4-5M7 18h10" /><circle cx="12" cy="14" r="1" /></svg>
+                  <span id="measure-speed-label">Detectar velocidad y calcular</span>
+                </button>
+                <p class="field-hint" id="speed-test-note">Al pulsar, se descargan hasta unos 51 MB desde Cloudflare, que recibe la solicitud y tu IP. El cálculo y los datos del billete se quedan en tu navegador.</p>
+                <p class="speed-test-status" id="speed-test-status" role="status" aria-live="polite">La medición solo empieza cuando pulsas el botón.</p>
               </div>
 
               <div class="efficiency-block">
                 <div class="field-label-line">
-                  <label for="efficiency-input">Rendimiento estimado</label>
-                  <output id="efficiency-value" for="efficiency-input">85%</output>
+                  <span>Margen para la estimación</span>
+                  <output id="efficiency-value">85%</output>
                 </div>
-                <input class="efficiency-slider" id="efficiency-input" name="efficiency" type="range" min="50" max="100" step="1" value="85" aria-describedby="efficiency-hint" />
-                <div class="slider-ends"><span>50% · Wi-Fi saturado</span><span>100% · ideal</span></div>
-                <p class="visually-hidden" id="efficiency-hint">Ajusta la diferencia entre la velocidad anunciada y el rendimiento sostenido.</p>
+                <p class="field-hint">Se usa el 85% de la velocidad medida para contar con variaciones de red y del servidor de descarga.</p>
               </div>
 
               <div class="result-panel" aria-live="polite" aria-atomic="true">
@@ -120,25 +109,25 @@
                   <span class="result-label">TIEMPO ESTIMADO</span>
                   <span class="result-chip"><span class="result-chip-dot" aria-hidden="true"></span><span id="result-efficiency">85%</span> de rendimiento</span>
                 </div>
-                <p class="result-time" id="result-time">1 h 50 min</p>
+                <p class="result-time" id="result-time">—</p>
                 <div class="result-detail-row">
-                  <span id="result-summary">210 GB a 300 Mbps</span>
-                  <span id="result-throughput">32 MB/s efectivos</span>
+                  <span id="result-summary">Mide tu conexión para calcular</span>
+                  <span id="result-throughput">Esperando medición</span>
                 </div>
                 <div class="result-rule" aria-hidden="true"><span></span></div>
                 <div class="result-comparison">
                   <div>
-                    <span>Con tu rendimiento</span>
-                    <strong id="practical-time">1 h 50 min</strong>
+                    <span>Con margen estimado</span>
+                    <strong id="practical-time">Pendiente</strong>
                   </div>
                   <div>
-                    <span>En condiciones ideales</span>
-                    <strong id="ideal-time">1 h 34 min</strong>
+                    <span>A la velocidad medida</span>
+                    <strong id="ideal-time">—</strong>
                   </div>
                 </div>
               </div>
 
-              <div class="calculator-actions">
+              <div class="calculator-actions" id="calculator-actions" hidden>
                 <button class="copy-button" id="copy-button" type="button">
                   <span class="copy-icon" aria-hidden="true">⧉</span>
                   <span id="copy-label">Copiar resultado</span>
@@ -153,8 +142,8 @@
 
         <section class="trust-strip" aria-label="Información del estimador">
           <div class="trust-item"><span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 9h18m-13 7h8" /></svg></span><span><strong>Sin instalaciones</strong><small>Abre y calcula en tu navegador</small></span></div>
-          <div class="trust-item"><span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 18a8 8 0 1 1 16 0M12 14l4-5M7 18h10" /><circle cx="12" cy="14" r="1" /></svg></span><span><strong>Tu velocidad, tu cálculo</strong><small>Sin medir la conexión automáticamente</small></span></div>
-          <div class="trust-item"><span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.6 2.8 7.8 7 10 4.2-2.2 7-5.4 7-10V6l-7-3Z" /><path d="m9 12 2 2 4-4" /></svg></span><span><strong>Privado por defecto</strong><small>Los datos del cálculo no se envían</small></span></div>
+          <div class="trust-item"><span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 18a8 8 0 1 1 16 0M12 14l4-5M7 18h10" /><circle cx="12" cy="14" r="1" /></svg></span><span><strong>Medición puntual</strong><small>Solo cuando pulsas el botón</small></span></div>
+          <div class="trust-item"><span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.6 2.8 7.8 7 10 4.2-2.2 7-5.4 7-10V6l-7-3Z" /><path d="m9 12 2 2 4-4" /></svg></span><span><strong>Cálculo local</strong><small>Tu tamaño y billete no se envían</small></span></div>
         </section>
 
         <section class="ticket-section section-wrap" id="billete" aria-labelledby="ticket-title">
@@ -213,11 +202,11 @@
                 </div>
                 <div class="ticket-traveler-row">
                   <div><small>PASAJERO</small><strong id="ticket-passenger">VIAJERO/A</strong></div>
-                  <div><small>TIEMPO DE VIAJE</small><strong class="ticket-time" id="ticket-time">1 h 50 min</strong></div>
+                  <div><small>TIEMPO DE VIAJE</small><strong class="ticket-time" id="ticket-time">Pendiente</strong></div>
                 </div>
                 <div class="ticket-details">
                   <div><small>TAMAÑO</small><strong id="ticket-size">210 GB</strong></div>
-                  <div><small>VELOCIDAD</small><strong id="ticket-speed">300 Mbps</strong></div>
+                  <div><small>VELOCIDAD MEDIDA</small><strong id="ticket-speed">Sin medir</strong></div>
                   <div><small>RENDIMIENTO</small><strong id="ticket-efficiency">85%</strong></div>
                   <div><small>ASIENTO</small><strong id="ticket-seat">VI-021</strong></div>
                 </div>
@@ -336,9 +325,9 @@
               <span class="interest-content"><span class="interest-type">GALERÍA OFICIAL</span><strong>Fondos y arte</strong><span class="interest-description">Material gráfico publicado por Rockstar Games.</span></span>
               <svg class="interest-arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></svg>
             </a>
-            <a class="interest-link" href="https://www.speedtest.net/" target="_blank" rel="noopener noreferrer">
+            <a class="interest-link" href="https://speed.cloudflare.com/" target="_blank" rel="noopener noreferrer">
               <span class="interest-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 18a8 8 0 1 1 16 0M12 14l4-5M7 18h10" /><circle cx="12" cy="14" r="1" /></svg></span>
-              <span class="interest-content"><span class="interest-type">HERRAMIENTA</span><strong>Prueba de velocidad</strong><span class="interest-description">Mide la velocidad real de tu conexión.</span></span>
+              <span class="interest-content"><span class="interest-type">HERRAMIENTA</span><strong>Speed Test de Cloudflare</strong><span class="interest-description">Consulta la velocidad de tu conexión.</span></span>
               <svg class="interest-arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></svg>
             </a>
             <a class="interest-link" href="https://unavatar.io/docs" target="_blank" rel="noopener noreferrer">
