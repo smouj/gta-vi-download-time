@@ -30,7 +30,7 @@ a { color: inherit; }
 
 .topbar { position: relative; z-index: 5; height: 90px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.12); }
 .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; }
-.brand-mark { display: grid; place-items: center; width: 38px; height: 38px; color: #171015; background: linear-gradient(140deg, #ffb4d9 2%, #ff6ab5 53%, #d94eaa 100%); border-radius: 50%; font-family: var(--display); font-size: 15px; font-style: italic; font-weight: 900; letter-spacing: -1px; box-shadow: 0 0 24px rgba(255,106,181,.23); }
+.brand-mark { display: block; width: 38px; height: 38px; border-radius: 50%; filter: drop-shadow(0 0 12px rgba(255,106,181,.18)); }
 .brand-name { color: #d3d0d3; font-size: 8px; font-weight: 700; letter-spacing: 2px; line-height: 1.4; }
 .brand-name strong { color: white; font-size: 10px; letter-spacing: 2.8px; }
 .main-nav { display: flex; align-items: center; gap: 34px; margin-left: 45px; }
@@ -42,10 +42,12 @@ a { color: inherit; }
 .arrow { color: var(--pink); font-size: 15px; }
 
 .hero { position: relative; min-height: 710px; display: flex; flex-direction: column; justify-content: center; isolation: isolate; background: #141218; border-bottom: 1px solid rgba(255,255,255,.08); }
-.hero-image { position: absolute; z-index: -3; inset: 0; background-image: linear-gradient(90deg, rgba(9,10,15,.96) 0%, rgba(9,10,15,.86) 33%, rgba(9,10,15,.56) 64%, rgba(9,10,15,.82) 100%), linear-gradient(0deg, #090a0f 0%, transparent 28%, rgba(8,9,14,.12) 70%, rgba(9,10,15,.5) 100%), url("https://www.rockstargames.com/VI/_next/static/media/Jason_and_Lucia_Beach_landscape.0419q._86ukpt.jpg?akim=1&imdensity=1&imwidth=2000"); background-position: center, center, 54% 46%; background-size: cover; opacity: .94; }
+.hero-image { position: absolute; z-index: -3; inset: -34px 0; background-image: linear-gradient(90deg, rgba(9,10,15,.96) 0%, rgba(9,10,15,.86) 33%, rgba(9,10,15,.56) 64%, rgba(9,10,15,.82) 100%), linear-gradient(0deg, #090a0f 0%, transparent 28%, rgba(8,9,14,.12) 70%, rgba(9,10,15,.5) 100%), url("https://www.rockstargames.com/VI/_next/static/media/Jason_and_Lucia_Beach_landscape.0419q._86ukpt.jpg?akim=1&imdensity=1&imwidth=2000"); background-position: center, center, 54% 46%; background-size: cover; opacity: .94; transform: translate3d(0, var(--parallax-y, 0px), 0) scale(1.06); will-change: transform; }
 .hero-glow { position: absolute; z-index: -2; border-radius: 50%; filter: blur(70px); pointer-events: none; }
-.hero-glow-pink { width: 250px; height: 350px; right: 25%; top: 2%; background: rgba(195,61,137,.13); transform: rotate(35deg); }
-.hero-glow-blue { width: 300px; height: 230px; left: 27%; bottom: 9%; background: rgba(62,141,166,.1); }
+.hero-glow-pink { width: 250px; height: 350px; right: 25%; top: 2%; background: rgba(195,61,137,.13); transform: rotate(35deg); animation: glow-pink-drift 17s ease-in-out infinite alternate; }
+.hero-glow-blue { width: 300px; height: 230px; left: 27%; bottom: 9%; background: rgba(62,141,166,.1); animation: glow-blue-drift 21s ease-in-out infinite alternate; }
+@keyframes glow-pink-drift { from { transform: rotate(35deg) translate3d(0, -9px, 0); } to { transform: rotate(35deg) translate3d(8px, 12px, 0); } }
+@keyframes glow-blue-drift { from { transform: translate3d(0, 7px, 0); } to { transform: translate3d(-12px, -8px, 0); } }
 .hero-content { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(390px, 480px); align-items: center; gap: clamp(48px, 8vw, 118px); padding-block: 72px 94px; }
 .hero-copy { max-width: 545px; padding-top: 10px; }
 .eyebrow, .section-kicker, .card-kicker, .result-label, .formula-label { margin: 0; color: var(--pink-light); font-size: 9px; font-weight: 750; letter-spacing: 2.1px; }
@@ -67,7 +69,7 @@ h1 em, h2 em { color: var(--pink-light); font-style: normal; }
 .live-pill { display: inline-flex; align-items: center; gap: 6px; margin-left: 8px; color: #9f9ba3; font-size: 8px; letter-spacing: 1px; }
 .live-pill span { width: 5px; height: 5px; flex-basis: 5px; background: var(--cyan); box-shadow: 0 0 9px rgba(123,230,232,.8); }
 .calculator-heading h2 { margin: 9px 0 0; font-size: 18px; font-weight: 620; letter-spacing: -.3px; }
-.calculator-stamp { display: grid; place-items: center; width: 39px; height: 39px; border: 1px solid rgba(255,106,181,.33); border-radius: 50%; color: var(--pink-light); font-family: var(--display); font-size: 14px; font-style: italic; font-weight: 900; }
+.calculator-stamp { display: block; width: 44px; height: 44px; border-radius: 50%; filter: drop-shadow(0 0 10px rgba(255,106,181,.14)); }
 .field-block { margin-top: 21px; }
 .field-label-line { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
 .field-label-line label { color: #efedef; font-size: 11px; font-weight: 600; }
@@ -176,8 +178,21 @@ h1 em, h2 em { color: var(--pink-light); font-style: normal; }
 .size-note-number { align-self: center; color: #fff; font-family: var(--display); font-size: 40px; font-weight: 700; letter-spacing: -1px; white-space: nowrap; }
 .size-note-number span { margin-left: 3px; color: var(--orange); font-family: var(--body); font-size: 10px; letter-spacing: 1px; }
 
+.links-section { padding-bottom: 88px; }
+.interest-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.interest-link { position: relative; display: flex; min-height: 138px; flex-direction: column; align-items: flex-start; padding: 20px; background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.018)); border: 1px solid var(--line); border-radius: 9px; text-decoration: none; transition: transform .2s ease, border-color .2s ease, background .2s ease; }
+.interest-link:hover { transform: translateY(-3px); background: rgba(255,255,255,.055); border-color: rgba(255,106,181,.42); }
+.interest-type { margin-bottom: 12px; color: var(--cyan); font-size: 8px; font-weight: 700; letter-spacing: 1.4px; }
+.interest-link strong { padding-right: 22px; color: #f1eef2; font-size: 13px; font-weight: 650; }
+.interest-description { margin-top: 7px; padding-right: 8px; color: #928e98; font-size: 10px; line-height: 1.55; }
+.interest-arrow { position: absolute; top: 18px; right: 18px; color: var(--pink-light); font-size: 15px; }
+.fanmade-notice { display: grid; grid-template-columns: 155px minmax(0, 1fr); gap: 18px; margin-top: 22px; padding: 20px 22px; background: rgba(255,176,125,.045); border: 1px solid rgba(255,176,125,.18); border-radius: 9px; }
+.notice-label { color: var(--orange); font-size: 8px; font-weight: 750; letter-spacing: 1.5px; }
+.fanmade-notice p { margin: 0; color: #a9a5ad; font-size: 10px; line-height: 1.7; }
+.fanmade-notice strong { color: #ece7e8; font-weight: 650; }
+
 .footer { display: flex; align-items: center; justify-content: space-between; gap: 25px; padding-block: 27px 32px; border-top: 1px solid var(--line); }
-.footer-brand .brand-mark { width: 31px; height: 31px; font-size: 13px; }
+.footer-brand .brand-mark { width: 31px; height: 31px; }
 .footer-brand .brand-name { font-size: 7px; }
 .footer-brand .brand-name strong { font-size: 8px; }
 .footer > p { margin: 0; color: #bbb7bf; font-size: 9px; line-height: 1.65; text-align: center; }
@@ -201,6 +216,7 @@ h1 em, h2 em { color: var(--pink-light); font-style: normal; }
   .wallpaper-card-featured { grid-row: span 2; }
   .wallpaper-card-featured .wallpaper-image { aspect-ratio: .82; }
   .method-layout { gap: 55px; }
+  .interest-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 700px) {
   .section-wrap, .topbar, .hero-content, .trust-strip { width: calc(100% - 36px); }
@@ -234,6 +250,10 @@ h1 em, h2 em { color: var(--pink-light); font-style: normal; }
   .wallpaper-card-featured { grid-row: auto; }
   .wallpaper-card-featured .wallpaper-image, .wallpaper-image { aspect-ratio: 1.5; }
   .wallpaper-caption h3 { font-size: 13px; }
+  .links-section { padding-bottom: 65px; }
+  .interest-grid { grid-template-columns: 1fr; gap: 9px; }
+  .interest-link { min-height: 124px; padding: 17px; }
+  .fanmade-notice { grid-template-columns: 1fr; gap: 9px; padding: 17px; }
   .method-layout { grid-template-columns: 1fr; gap: 33px; padding-block: 67px; }
   .method-copy > p:not(.section-kicker) { font-size: 11px; }
   .formula { align-items: flex-start; flex-direction: column; gap: 7px; }
@@ -260,5 +280,6 @@ h1 em, h2 em { color: var(--pink-light); font-style: normal; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+  .hero-image, .hero-glow { animation: none !important; transform: none !important; will-change: auto; }
 }
 
