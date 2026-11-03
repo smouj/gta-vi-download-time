@@ -30,7 +30,7 @@ a { color: inherit; }
 
 .topbar { position: relative; z-index: 5; height: 90px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.12); }
 .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; }
-.brand-mark { display: block; width: 38px; height: 38px; border-radius: 50%; filter: drop-shadow(0 0 12px rgba(255,106,181,.18)); }
+.brand-mark { display: block; width: 58px; height: 38px; object-fit: contain; filter: drop-shadow(0 0 12px rgba(255,106,181,.18)); }
 .brand-name { color: #d3d0d3; font-size: 8px; font-weight: 700; letter-spacing: 2px; line-height: 1.4; }
 .brand-name strong { color: white; font-size: 10px; letter-spacing: 2.8px; }
 .main-nav { display: flex; align-items: center; gap: 34px; margin-left: 45px; }
@@ -69,7 +69,7 @@ h1 em, h2 em { color: var(--pink-light); font-style: normal; }
 .live-pill { display: inline-flex; align-items: center; gap: 6px; margin-left: 8px; color: #9f9ba3; font-size: 8px; letter-spacing: 1px; }
 .live-pill span { width: 5px; height: 5px; flex-basis: 5px; background: var(--cyan); box-shadow: 0 0 9px rgba(123,230,232,.8); }
 .calculator-heading h2 { margin: 9px 0 0; font-size: 18px; font-weight: 620; letter-spacing: -.3px; }
-.calculator-stamp { display: block; width: 44px; height: 44px; border-radius: 50%; filter: drop-shadow(0 0 10px rgba(255,106,181,.14)); }
+.calculator-stamp { display: block; width: 66px; height: 44px; object-fit: contain; filter: drop-shadow(0 0 10px rgba(255,106,181,.14)); }
 .field-block { margin-top: 21px; }
 .field-label-line { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
 .field-label-line label { color: #efedef; font-size: 11px; font-weight: 600; }
@@ -192,7 +192,7 @@ h1 em, h2 em { color: var(--pink-light); font-style: normal; }
 .fanmade-notice strong { color: #ece7e8; font-weight: 650; }
 
 .footer { display: flex; align-items: center; justify-content: space-between; gap: 25px; padding-block: 27px 32px; border-top: 1px solid var(--line); }
-.footer-brand .brand-mark { width: 31px; height: 31px; }
+.footer-brand .brand-mark { width: 48px; height: 31px; }
 .footer-brand .brand-name { font-size: 7px; }
 .footer-brand .brand-name strong { font-size: 8px; }
 .footer > p { margin: 0; color: #bbb7bf; font-size: 9px; line-height: 1.65; text-align: center; }
