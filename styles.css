@@ -101,6 +101,17 @@ h1 em, h2 em { color: var(--pink-light); font-style: normal; }
 .speed-test-status { min-height: 14px; margin: 7px 0 0; color: #8f8b94; font-size: 9px; line-height: 1.45; }
 .speed-test-status[data-state="success"] { color: var(--cyan); }
 .speed-test-status[data-state="error"] { color: var(--orange); }
+.audience-counter { display: flex; align-items: center; gap: 9px; margin-top: 11px; padding: 10px 11px; background: rgba(123,230,232,.045); border: 1px solid rgba(123,230,232,.11); border-radius: 7px; }
+.audience-counter > svg { width: 17px; height: 17px; flex: 0 0 17px; fill: none; stroke: var(--cyan); stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5; }
+.audience-counter-copy { display: flex; min-width: 0; flex-wrap: wrap; align-items: baseline; gap: 2px 5px; }
+.audience-counter-copy strong { color: #e9e6e9; font-size: 9px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.audience-counter-copy small { color: #918d96; font-size: 8px; }
+.counter-disclosure { margin: 6px 0 0; color: #89858e; font-size: 9px; line-height: 1.45; }
+.counter-disclosure a { color: #aaa5af; text-decoration: underline; text-decoration-color: rgba(170,165,175,.4); text-underline-offset: 2px; }
+.counter-disclosure a:hover { color: var(--cyan); }
+.counter-status { min-height: 10px; margin: 3px 0 0; color: #797680; font-size: 8px; line-height: 1.4; }
+.counter-status[data-state="success"] { color: #8acfd0; }
+.counter-status[data-state="error"] { color: #e5a37f; }
 .efficiency-block { margin-top: 15px; }
 .efficiency-block .field-label-line { margin-bottom: 0; }
 .efficiency-block .field-label-line > span { color: #efedef; font-size: 10px; font-weight: 600; }

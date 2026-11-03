@@ -5,6 +5,8 @@
   const measureSpeedLabel = document.querySelector("#measure-speed-label");
   const detectedSpeed = document.querySelector("#detected-speed");
   const speedTestStatus = document.querySelector("#speed-test-status");
+  const speedTesterCount = document.querySelector("#speed-tester-count");
+  const speedTesterCountStatus = document.querySelector("#speed-tester-count-status");
   const calculatorActions = document.querySelector("#calculator-actions");
   const efficiencyValue = document.querySelector("#efficiency-value");
   const resultEfficiency = document.querySelector("#result-efficiency");
@@ -44,6 +46,7 @@
   const AVATAR_PLACEHOLDER = "assets/avatar-placeholder.svg";
   const DEFAULT_EFFICIENCY = 85;
   const SPEED_TEST_ENDPOINT = "https://speed.cloudflare.com/__down";
+  const SPEED_TEST_COUNTER_ENDPOINT = "https://counterapi.com/api/smouj.github.io/speed-test/gta-vi-download-time-users";
   const MAX_PROBE_BYTES = 25_000_000;
   const FIRST_PROBE_BYTES = 250_000;
   let currentAvatarData = "";
@@ -291,6 +294,7 @@
     isMeasuringSpeed = true;
     speedTestStatus.dataset.state = "";
     speedTestStatus.textContent = "Midiendo la descarga hacia Cloudflare…";
+    void updateSpeedTesterCount(true);
     update();
     try {
       const result = await measureDownloadSpeed((message) => { speedTestStatus.textContent = message; });
@@ -308,6 +312,42 @@
       update();
     }
   });
+
+  let speedCounterRequestVersion = 0;
+  async function updateSpeedTesterCount(increment = false) {
+    const requestVersion = ++speedCounterRequestVersion;
+    const url = new URL(SPEED_TEST_COUNTER_ENDPOINT);
+    url.searchParams.set("unique", "true");
+    if (!increment) url.searchParams.set("readOnly", "true");
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 7000);
+    try {
+      const response = await fetch(url, {
+        cache: "no-store",
+        credentials: "omit",
+        mode: "cors",
+        referrerPolicy: "no-referrer",
+        signal: controller.signal,
+      });
+      if (!response.ok) throw new Error(`CounterAPI respondió ${response.status}.`);
+      const payload = await response.json();
+      const count = Number(payload.value);
+      if (!Number.isFinite(count) || count < 0) throw new Error("La respuesta no contiene un total válido.");
+      if (requestVersion !== speedCounterRequestVersion) return;
+      speedTesterCount.textContent = formatNumber(Math.floor(count));
+      speedTesterCountStatus.dataset.state = "success";
+      speedTesterCountStatus.textContent = "Total global actualizado.";
+    } catch {
+      if (requestVersion !== speedCounterRequestVersion) return;
+      speedTesterCount.textContent = "—";
+      speedTesterCountStatus.dataset.state = "error";
+      speedTesterCountStatus.textContent = increment
+        ? "No se pudo actualizar el contador ahora; la medición de velocidad continúa."
+        : "El contador global no está disponible ahora.";
+    } finally {
+      window.clearTimeout(timeoutId);
+    }
+  }
 
   function saveAvatar(dataUrl, message) {
     currentAvatarData = dataUrl;
@@ -710,6 +750,7 @@
     }
   });
 
+  void updateSpeedTesterCount();
   update();
 
   const hero = document.querySelector(".hero");

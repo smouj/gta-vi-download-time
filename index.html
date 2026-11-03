@@ -14,8 +14,8 @@
     <link rel="icon" type="image/png" href="assets/gta-vi-logo.png" />
     <link rel="canonical" href="https://smouj.github.io/gta-vi-download-time/" />
     <link rel="preconnect" href="https://www.rockstargames.com" />
-    <link rel="stylesheet" href="styles.css?v=20261103-06" />
-    <script src="app.js?v=20261103-06" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20261103-07" />
+    <script src="app.js?v=20261103-07" defer></script>
     <title>¿Cuánto tardaría en descargar GTA VI? | Calculadora</title>
   </head>
   <body>
@@ -94,6 +94,12 @@
                 </button>
                 <p class="field-hint" id="speed-test-note">Al pulsar, se descargan hasta unos 51 MB desde Cloudflare, que recibe la solicitud y tu IP. El cálculo y los datos del billete se quedan en tu navegador.</p>
                 <p class="speed-test-status" id="speed-test-status" role="status" aria-live="polite">La medición solo empieza cuando pulsas el botón.</p>
+                <div class="audience-counter" aria-live="polite" aria-atomic="true">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-1.5a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4V21m7-9a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm6-7a4 4 0 0 1 0 7m2 3a4 4 0 0 1 4 4v1" /></svg>
+                  <span class="audience-counter-copy"><strong><span id="speed-tester-count">…</span> personas únicas aproximadas</strong><small>han pulsado «Medir y calcular» <span aria-hidden="true">·</span> cifra global</small></span>
+                </div>
+                <p class="counter-disclosure">Contador global con <a href="https://counterapi.com/" target="_blank" rel="noopener noreferrer">CounterAPI</a>, que declara anonimizar IP y datos del navegador. No recibe tu velocidad ni el tamaño del juego.</p>
+                <p class="counter-status" id="speed-tester-count-status" role="status" aria-live="polite">Consultando el total global…</p>
               </div>
 
               <div class="efficiency-block">
