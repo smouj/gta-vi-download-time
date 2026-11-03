@@ -171,5 +171,26 @@
   });
 
   update();
+
+  const hero = document.querySelector(".hero");
+  const heroImage = document.querySelector(".hero-image");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (hero && heroImage && !reduceMotion.matches) {
+    let framePending = false;
+    const updateParallax = () => {
+      const heroProgress = Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / hero.offsetHeight));
+      heroImage.style.setProperty("--parallax-y", `${-heroProgress * 28}px`);
+      framePending = false;
+    };
+    const requestParallaxUpdate = () => {
+      if (!framePending) {
+        window.requestAnimationFrame(updateParallax);
+        framePending = true;
+      }
+    };
+    window.addEventListener("scroll", requestParallaxUpdate, { passive: true });
+    window.addEventListener("resize", requestParallaxUpdate, { passive: true });
+    updateParallax();
+  }
 })();
 
