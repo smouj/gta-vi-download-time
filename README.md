@@ -2,7 +2,7 @@
 
 Calculadora estática en español para estimar cuánto tardaría una descarga de GTA VI según el tamaño del juego, la velocidad de Internet y el rendimiento sostenido de la conexión.
 
-**Web pública:** se publicará en GitHub Pages en `https://smouj.github.io/gta-vi-download-time/`.
+**Abrir la calculadora en GitHub Pages:** [GTA VI Download Time ↗](https://smouj.github.io/gta-vi-download-time/)
 
 ## Qué incluye
 
