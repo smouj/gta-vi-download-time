@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#090a0f" />
+    <meta name="description" content="Calcula cuánto tardarías en descargar GTA VI con tu velocidad de Internet. Ajusta el tamaño del juego y el rendimiento real de tu conexión." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="GTA VI Download Time — ¿cuánto tardará?" />
+    <meta property="og:description" content="Tu conexión, el tamaño del juego y una estimación clara de descarga." />
+    <meta property="og:image" content="https://www.rockstargames.com/VI/_next/static/media/Jason_and_Lucia_Beach_landscape.0419q._86ukpt.jpg?akim=1&amp;imdensity=1&amp;imwidth=1600" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="preconnect" href="https://www.rockstargames.com" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+    <title>GTA VI Download Time — Calcula tu descarga</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#calculadora">Saltar a la calculadora</a>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="#inicio" aria-label="GTA VI Download Time, inicio">
+          <span class="brand-mark" aria-hidden="true">VI</span>
+          <span class="brand-name">DOWNLOAD<br /><strong>TIME</strong></span>
+        </a>
+        <nav class="main-nav" aria-label="Navegación principal">
+          <a href="#calculadora">Calculadora</a>
+          <a href="#fondos">Fondos</a>
+          <a href="#como-funciona">Cómo funciona</a>
+        </nav>
+        <a class="topbar-note" href="#cifra">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>210 GB <span class="note-muted">· estimación</span></span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+      </header>
+
+      <main id="inicio">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-image" aria-hidden="true"></div>
+          <div class="hero-glow hero-glow-pink" aria-hidden="true"></div>
+          <div class="hero-glow hero-glow-blue" aria-hidden="true"></div>
+          <div class="hero-content">
+            <div class="hero-copy">
+              <p class="eyebrow"><span class="eyebrow-line"></span> LEONIDA, A UN CÁLCULO DE DISTANCIA</p>
+              <h1 id="hero-title">¿Cuánto tarda<br />en llegar <em>GTA VI?</em></h1>
+              <p class="hero-description">Tu velocidad de Internet. El tamaño del juego. Y una estimación realista de cuánto vas a esperar.</p>
+              <a class="text-link hero-link" href="#calculadora">Calcula tu descarga <span aria-hidden="true">↓</span></a>
+              <div class="hero-footnote">
+                <span class="footnote-icon" aria-hidden="true">✳</span>
+                <span>La cifra de 210 GB es orientativa y todavía no está confirmada oficialmente.</span>
+              </div>
+            </div>
+
+            <section class="calculator-card" id="calculadora" aria-labelledby="calculator-title">
+              <div class="calculator-heading">
+                <div>
+                  <p class="card-kicker">ESTIMADOR DE DESCARGA <span class="live-pill"><span></span> EN VIVO</span></p>
+                  <h2 id="calculator-title">Tu tiempo en Vice City</h2>
+                </div>
+                <span class="calculator-stamp" aria-hidden="true">VI</span>
+              </div>
+
+              <div class="field-block">
+                <div class="field-label-line">
+                  <label for="size-input">Tamaño del juego</label>
+                  <a class="field-help-link" href="#cifra">¿De dónde sale?</a>
+                </div>
+                <div class="input-shell">
+                  <input id="size-input" name="size" type="number" min="1" max="100000" step="1" value="210" inputmode="decimal" aria-describedby="size-hint" />
+                  <label class="visually-hidden" for="size-unit">Unidad de tamaño</label>
+                  <select id="size-unit" name="size-unit" aria-label="Unidad del tamaño">
+                    <option value="GB" selected>GB</option>
+                    <option value="TB">TB</option>
+                  </select>
+                </div>
+                <p class="field-hint" id="size-hint"><span class="hint-icon" aria-hidden="true">↳</span> Puedes cambiarlo cuando tu plataforma anuncie el tamaño final.</p>
+              </div>
+
+              <div class="field-block speed-block">
+                <div class="field-label-line">
+                  <label for="speed-input">Velocidad de descarga</label>
+                  <span class="speed-badge">TU CONEXIÓN</span>
+                </div>
+                <div class="input-shell speed-input-shell">
+                  <input id="speed-input" name="speed" type="number" min="1" max="100000" step="1" value="300" inputmode="decimal" aria-describedby="speed-hint" />
+                  <label class="visually-hidden" for="speed-unit">Unidad de velocidad</label>
+                  <select id="speed-unit" name="speed-unit" aria-label="Unidad de velocidad">
+                    <option value="Mbps" selected>Mbps</option>
+                    <option value="Gbps">Gbps</option>
+                  </select>
+                </div>
+                <div class="speed-presets" aria-label="Velocidades habituales">
+                  <button type="button" data-speed="100" data-unit="Mbps">100 Mbps</button>
+                  <button type="button" data-speed="300" data-unit="Mbps" class="is-selected">300 Mbps</button>
+                  <button type="button" data-speed="600" data-unit="Mbps">600 Mbps</button>
+                  <button type="button" data-speed="1" data-unit="Gbps">1 Gbps</button>
+                </div>
+                <p class="field-hint" id="speed-hint">La velocidad contratada puede variar respecto a la real.</p>
+              </div>
+
+              <div class="efficiency-block">
+                <div class="field-label-line">
+                  <label for="efficiency-input">Rendimiento estimado</label>
+                  <output id="efficiency-value" for="efficiency-input">85%</output>
+                </div>
+                <input class="efficiency-slider" id="efficiency-input" name="efficiency" type="range" min="50" max="100" step="1" value="85" aria-describedby="efficiency-hint" />
+                <div class="slider-ends"><span>50% · Wi-Fi saturado</span><span>100% · ideal</span></div>
+                <p class="visually-hidden" id="efficiency-hint">Ajusta la diferencia entre la velocidad anunciada y el rendimiento sostenido.</p>
+              </div>
+
+              <div class="result-panel" aria-live="polite" aria-atomic="true">
+                <div class="result-topline">
+                  <span class="result-label">TIEMPO ESTIMADO</span>
+                  <span class="result-chip"><span class="result-chip-dot" aria-hidden="true"></span><span id="result-efficiency">85%</span> de rendimiento</span>
+                </div>
+                <p class="result-time" id="result-time">1 h 49 min</p>
+                <div class="result-detail-row">
+                  <span id="result-summary">210 GB a 300 Mbps</span>
+                  <span id="result-throughput">32 MB/s efectivos</span>
+                </div>
+                <div class="result-rule" aria-hidden="true"><span></span></div>
+                <div class="result-comparison">
+                  <div>
+                    <span>Con tu rendimiento</span>
+                    <strong id="practical-time">1 h 49 min</strong>
+                  </div>
+                  <div>
+                    <span>En condiciones ideales</span>
+                    <strong id="ideal-time">1 h 33 min</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="copy-button" id="copy-button" type="button">
+                  <span class="copy-icon" aria-hidden="true">⧉</span>
+                  <span id="copy-label">Copiar resultado</span>
+                </button>
+                <a class="share-link" id="share-link" href="#calculadora">Compartir cálculo <span aria-hidden="true">↗</span></a>
+              </div>
+              <p class="copy-feedback" id="copy-feedback" aria-live="polite"></p>
+            </section>
+          </div>
+          <div class="hero-caption"><span>01 / 03</span><span>ARTE OFICIAL · ROCKSTAR GAMES</span></div>
+        </section>
+
+        <section class="trust-strip" aria-label="Información del estimador">
+          <div class="trust-item"><span class="trust-icon" aria-hidden="true">◉</span><span><strong>Sin instalaciones</strong><small>Abre y calcula en tu navegador</small></span></div>
+          <div class="trust-item"><span class="trust-icon" aria-hidden="true">⌁</span><span><strong>Sin mediciones</strong><small>Usa la velocidad que tú indiques</small></span></div>
+          <div class="trust-item"><span class="trust-icon" aria-hidden="true">⌖</span><span><strong>Datos privados</strong><small>Tu cálculo no sale de este dispositivo</small></span></div>
+        </section>
+
+        <section class="wallpapers-section section-wrap" id="fondos" aria-labelledby="wallpapers-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">POSTALES DESDE LEONIDA <span>·</span> 02</p>
+              <h2 id="wallpapers-title">Un adelanto<br /><em>de la espera.</em></h2>
+            </div>
+            <div class="section-aside">
+              <p>Arte oficial de GTA VI para tener Vice City a la vista mientras llega la descarga.</p>
+              <a class="text-link" href="https://www.rockstargames.com/VI/media/artwork-wallpapers" target="_blank" rel="noopener noreferrer">Ver todos los fondos <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+
+          <div class="wallpaper-grid">
+            <article class="wallpaper-card wallpaper-card-featured">
+              <a class="wallpaper-image" href="https://www.rockstargames.com/VI/_next/static/media/Jason_and_Lucia_Beach_landscape.0419q._86ukpt.jpg?akim=1&amp;imdensity=1&amp;imwidth=3840" target="_blank" rel="noopener noreferrer" aria-label="Abrir en alta resolución: Jason y Lucia en la playa">
+                <img src="https://www.rockstargames.com/VI/_next/static/media/Jason_and_Lucia_Beach_landscape.0419q._86ukpt.jpg?akim=1&amp;imdensity=1&amp;imwidth=1400" alt="Jason y Lucia junto al mar al atardecer, arte oficial de GTA VI" loading="lazy" referrerpolicy="no-referrer" />
+                <span class="image-open" aria-hidden="true">↗</span>
+              </a>
+              <div class="wallpaper-caption"><div><span class="wallpaper-index">01 / PERSONAJES</span><h3>La calma antes del caos</h3></div><span class="wallpaper-resolution">HASTA 4K</span></div>
+            </article>
+            <article class="wallpaper-card">
+              <a class="wallpaper-image" href="https://www.rockstargames.com/VI/_next/static/media/Jason_Lucia_Lock_And_Load_landscape.0l9s5w7ih9p~3.jpg?akim=1&amp;imdensity=1&amp;imwidth=3840" target="_blank" rel="noopener noreferrer" aria-label="Abrir en alta resolución: Jason y Lucia Lock and Load">
+                <img src="https://www.rockstargames.com/VI/_next/static/media/Jason_Lucia_Lock_And_Load_landscape.0l9s5w7ih9p~3.jpg?akim=1&amp;imdensity=1&amp;imwidth=1400" alt="Jason y Lucia en el arte Lock and Load de GTA VI" loading="lazy" referrerpolicy="no-referrer" />
+                <span class="image-open" aria-hidden="true">↗</span>
+              </a>
+              <div class="wallpaper-caption"><div><span class="wallpaper-index">02 / JASON &amp; LUCIA</span><h3>Lock and Load</h3></div><span class="wallpaper-resolution">4K · MÓVIL</span></div>
+            </article>
+            <article class="wallpaper-card">
+              <a class="wallpaper-image" href="https://www.rockstargames.com/VI/_next/static/media/Vice_City_Postcard_landscape.0v2njmlk2n-qm.jpg?akim=1&amp;imdensity=1&amp;imwidth=3840" target="_blank" rel="noopener noreferrer" aria-label="Abrir en alta resolución: postal de Vice City">
+                <img src="https://www.rockstargames.com/VI/_next/static/media/Vice_City_Postcard_landscape.0v2njmlk2n-qm.jpg?akim=1&amp;imdensity=1&amp;imwidth=1400" alt="Postal oficial de Vice City en GTA VI" loading="lazy" referrerpolicy="no-referrer" />
+                <span class="image-open" aria-hidden="true">↗</span>
+              </a>
+              <div class="wallpaper-caption"><div><span class="wallpaper-index">03 / LEONIDA</span><h3>Saludos desde Vice City</h3></div><span class="wallpaper-resolution">HASTA 4K</span></div>
+            </article>
+          </div>
+          <p class="image-credit">Las imágenes se muestran desde la galería oficial de <a href="https://www.rockstargames.com/VI/media/artwork-wallpapers" target="_blank" rel="noopener noreferrer">Rockstar Games</a>. Al abrir una imagen, puedes guardarla desde el navegador.</p>
+        </section>
+
+        <section class="method-section" id="como-funciona" aria-labelledby="method-title">
+          <div class="method-layout section-wrap">
+            <div class="method-copy">
+              <p class="section-kicker">UNA CUENTA SENCILLA <span>·</span> 03</p>
+              <h2 id="method-title">Mbps dentro.<br /><em>Paciencia fuera.</em></h2>
+              <p>El cálculo convierte el tamaño del juego a bits y lo divide entre la velocidad efectiva de descarga. El porcentaje ajustable añade el margen que suelen restar el Wi-Fi, la congestión y los servidores.</p>
+              <div class="formula"><span class="formula-label">LA FÓRMULA</span><code>tiempo = tamaño × 8 ÷ velocidad efectiva</code></div>
+            </div>
+            <div class="method-steps">
+              <div class="method-step"><span class="step-number">01</span><div><h3>Introduce tu velocidad</h3><p>Usa la cifra de descarga de tu tarifa o un test reciente.</p></div></div>
+              <div class="method-step"><span class="step-number">02</span><div><h3>Ajusta el tamaño</h3><p>210 GB es una referencia provisional; cámbiala si aparece la cifra oficial.</p></div></div>
+              <div class="method-step"><span class="step-number">03</span><div><h3>Cuenta con el margen</h3><p>El resultado asume velocidad sostenida y no incluye instalación ni parches.</p></div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="size-note section-wrap" id="cifra" aria-labelledby="size-note-title">
+          <div class="size-note-mark" aria-hidden="true">!</div>
+          <div class="size-note-copy">
+            <p class="section-kicker">TRANSPARENCIA ANTES QUE RUMORES</p>
+            <h2 id="size-note-title">¿Por qué 210 GB?</h2>
+            <p>Es una estimación reciente atribuida a datos de PlayStation y recogida por varios medios. Rockstar Games aún no ha confirmado el tamaño final. La descarga puede variar según la plataforma, la región y las actualizaciones.</p>
+            <div class="source-links">
+              <a href="https://www.gamesradar.com/games/grand-theft-auto/gta-6-is-a-210gb-download-says-playstation-store-sleuth/" target="_blank" rel="noopener noreferrer">GamesRadar · estimación de 210 GB <span aria-hidden="true">↗</span></a>
+              <a href="https://www.rockstargames.com/VI/media" target="_blank" rel="noopener noreferrer">Rockstar Games · noticias y medios oficiales <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <span class="size-note-number">210<span>GB*</span></span>
+        </section>
+      </main>
+
+      <footer class="footer section-wrap">
+        <a class="brand footer-brand" href="#inicio" aria-label="Volver al inicio">
+          <span class="brand-mark" aria-hidden="true">VI</span>
+          <span class="brand-name">DOWNLOAD<br /><strong>TIME</strong></span>
+        </a>
+        <p>Un estimador de fans, hecho para fans.<br /><span>Grand Theft Auto VI es una marca de Rockstar Games / Take-Two Interactive. Este proyecto no está afiliado ni respaldado por ellas.</span></p>
+        <a class="back-top" href="#inicio">Volver arriba <span aria-hidden="true">↑</span></a>
+      </footer>
+    </div>
+  </body>
+</html>
+
