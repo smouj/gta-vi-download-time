@@ -12,6 +12,8 @@ Calculadora estática en español para estimar cuánto tardaría una descarga de
 - Ajuste de rendimiento real para aproximar la diferencia entre la velocidad contratada y la sostenida.
 - Enlace compartible con los valores del cálculo en la URL.
 - Fondos oficiales enlazados desde la galería de Rockstar Games; las imágenes no se incluyen ni se redistribuyen en este repositorio.
+- Efecto parallax discreto en la cabecera, con respeto a la preferencia de movimiento reducido del dispositivo.
+- Enlaces a la página oficial, la precarga, la galería, una prueba de velocidad y las fuentes del tamaño estimado.
 
 ## Ejecutar localmente
 
@@ -27,7 +29,7 @@ Se usa GB decimal (`1 GB = 1.000.000.000 bytes`). La velocidad efectiva es la ve
 
 La referencia provisional de 210 GB se basa en una estimación publicada por [GamesRadar](https://www.gamesradar.com/games/grand-theft-auto/gta-6-is-a-210gb-download-says-playstation-store-sleuth/). Rockstar Games no había confirmado el tamaño final al actualizar esta página el 3 de noviembre de 2026. El valor es editable para que los usuarios puedan actualizarlo cuando la plataforma anuncie el tamaño definitivo.
 
-Las imágenes se cargan desde la [galería oficial de arte y fondos de GTA VI](https://www.rockstargames.com/VI/media/artwork-wallpapers). GTA VI, sus personajes y sus imágenes son propiedad de Rockstar Games / Take-Two Interactive. Este proyecto independiente no está afiliado ni respaldado por ellas.
+Las imágenes se cargan desde la [galería oficial de arte y fondos de GTA VI](https://www.rockstargames.com/VI/media/artwork-wallpapers) y no se guardan en este repositorio. GTA VI, sus logotipos, personajes e imágenes son propiedad de sus titulares, Rockstar Games / Take-Two Interactive. Este proyecto fan-made no reclama derechos ni licencia sobre ese material y no está afiliado, patrocinado ni respaldado por esas compañías. La calculadora es un proyecto independiente, humorístico y no oficial; la referencia de 210 GB no es una cifra confirmada por Rockstar.
 
 ## Publicación
 
