@@ -16,7 +16,7 @@ Calculadora web gratuita en español para estimar cuánto tardaría una descarga
 ## Funciones
 
 - Detecta la velocidad de descarga con un solo botón y calcula la estimación al momento.
-- Muestra un contador global aproximado de usuarios únicos que han pulsado el botón de medición.
+- Muestra un contador global aproximado de navegadores que han pulsado el botón de medición.
 - Permite cambiar el tamaño estimado del juego y elegir GB o TB.
 - Aplica un 85% de la velocidad medida para aproximar las variaciones habituales de una descarga sostenida.
 - Comparte un enlace con los valores del cálculo.
@@ -25,7 +25,7 @@ Calculadora web gratuita en español para estimar cuánto tardaría una descarga
 - Incluye fondos y enlaces a la información oficial y a las fuentes del tamaño de referencia.
 - Añade movimiento parallax, microanimaciones y apariciones al desplazarse; respeta la preferencia de movimiento reducido.
 - No inicia la prueba de velocidad hasta pulsar el botón. La prueba descarga hasta unos 51 MB desde [Cloudflare Speed Test](https://speed.cloudflare.com/); Cloudflare recibe las solicitudes y la dirección IP necesaria para servirlas.
-- El total de usuarios únicos aproximados se consulta e incrementa a través de [CounterAPI](https://counterapi.com/). Su servicio indica que transforma las direcciones IP y los datos del navegador en hashes; el contador no verifica identidades y puede diferir del número real de personas.
+- El total aproximado se consulta e incrementa a través de [CountAPI](https://countapi.mileshilliard.com/), una API pública sin clave. Se cuenta un navegador una sola vez mediante una marca local; el recuento no verifica identidades y puede diferir del número real de personas.
 - El cálculo, el nombre, el origen y el billete se procesan en el navegador. La web no envía esos datos a un servidor ni usa analítica propia.
 
 ## Cómo se calcula
@@ -42,7 +42,7 @@ El valor inicial de 210 GB procede de un [reporte de GamesRadar](https://www.gam
 
 - El nombre, el origen, la velocidad y el tamaño se usan en la página y al generar el billete; no se guardan ni se envían desde esta web.
 - La medición solo comienza al pulsar el botón. Envía solicitudes de descarga a Cloudflare Speed Test; Cloudflare recibe la dirección IP y los datos técnicos necesarios para atender la solicitud. La prueba no envía el tamaño del juego, el nombre, el origen ni el billete.
-- El contador consulta el total al cargar la página y registra un evento único al pulsar el botón. CounterAPI recibe estas solicitudes; su documentación declara anonimizar la IP y los datos del navegador mediante hashes. El tamaño del juego, la velocidad medida, el nombre, el origen y el billete no se envían al contador.
+- El contador consulta el total al cargar la página e incrementa una vez por navegador al pulsar el botón. CountAPI recibe las solicitudes y la dirección IP necesaria para atenderlas. El tamaño del juego, la velocidad medida, el nombre, el origen y el billete no se envían al contador. Si se borra el almacenamiento local o se usa otro navegador o dispositivo, se puede volver a contar.
 - Una foto subida se recorta y comprime en el navegador. Se guarda en el almacenamiento local de ese dispositivo para reutilizarla; se elimina con **Quitar foto** o al borrar los datos del sitio.
 - Si se pulsa **Detectar foto**, el nombre de usuario se consulta mediante [Unavatar](https://unavatar.io/docs), un servicio externo que busca avatares públicos de X o Instagram. Esa consulta puede revelar al servicio qué perfil se está buscando y depende de la disponibilidad y los límites de Unavatar.
 - El PNG del billete se genera en el navegador. No se sube al repositorio ni a un servidor.

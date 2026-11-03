@@ -46,7 +46,9 @@
   const AVATAR_PLACEHOLDER = "assets/avatar-placeholder.svg";
   const DEFAULT_EFFICIENCY = 85;
   const SPEED_TEST_ENDPOINT = "https://speed.cloudflare.com/__down";
-  const SPEED_TEST_COUNTER_ENDPOINT = "https://counterapi.com/api/smouj.github.io/speed-test/gta-vi-download-time-users";
+  const SPEED_TEST_COUNTER_BASE = "https://countapi.mileshilliard.com/api/v1";
+  const SPEED_TEST_COUNT_KEY = "smouj_gta_vi_download_time_speed_test_clickers_20261103";
+  const SPEED_TEST_COUNTED_KEY = "gta-vi-download-time:speed-test-counted:v1";
   const MAX_PROBE_BYTES = 25_000_000;
   const FIRST_PROBE_BYTES = 250_000;
   let currentAvatarData = "";
@@ -314,11 +316,25 @@
   });
 
   let speedCounterRequestVersion = 0;
+  let speedCounterIncrementPending = false;
+
+  function hasCountedSpeedTester() {
+    try {
+      return window.localStorage.getItem(SPEED_TEST_COUNTED_KEY) === "1";
+    } catch {
+      return false;
+    }
+  }
+
   async function updateSpeedTesterCount(increment = false) {
+    const alreadyCounted = hasCountedSpeedTester();
+    const shouldIncrement = increment && !alreadyCounted;
+    if (shouldIncrement && speedCounterIncrementPending) return;
+    if (shouldIncrement) speedCounterIncrementPending = true;
+
     const requestVersion = ++speedCounterRequestVersion;
-    const url = new URL(SPEED_TEST_COUNTER_ENDPOINT);
-    url.searchParams.set("unique", "true");
-    if (!increment) url.searchParams.set("readOnly", "true");
+    const operation = shouldIncrement ? "hit" : "get";
+    const url = `${SPEED_TEST_COUNTER_BASE}/${operation}/${SPEED_TEST_COUNT_KEY}`;
     const controller = new AbortController();
     const timeoutId = window.setTimeout(() => controller.abort(), 7000);
     try {
@@ -329,23 +345,41 @@
         referrerPolicy: "no-referrer",
         signal: controller.signal,
       });
-      if (!response.ok) throw new Error(`CounterAPI respondió ${response.status}.`);
+      if (response.status === 404 && !shouldIncrement) {
+        if (requestVersion !== speedCounterRequestVersion) return;
+        speedTesterCount.textContent = "0";
+        speedTesterCountStatus.dataset.state = "success";
+        speedTesterCountStatus.textContent = "El total empezará a subir con la primera medición.";
+        return;
+      }
+      if (!response.ok) throw new Error(`CountAPI respondió ${response.status}.`);
       const payload = await response.json();
       const count = Number(payload.value);
       if (!Number.isFinite(count) || count < 0) throw new Error("La respuesta no contiene un total válido.");
+      let browserMarkSaved = true;
+      if (shouldIncrement) {
+        try {
+          window.localStorage.setItem(SPEED_TEST_COUNTED_KEY, "1");
+        } catch {
+          browserMarkSaved = false;
+        }
+      }
       if (requestVersion !== speedCounterRequestVersion) return;
       speedTesterCount.textContent = formatNumber(Math.floor(count));
       speedTesterCountStatus.dataset.state = "success";
-      speedTesterCountStatus.textContent = "Total global actualizado.";
+      speedTesterCountStatus.textContent = shouldIncrement
+        ? browserMarkSaved ? "Este navegador ya está incluido en el total." : "Contador actualizado; este navegador no pudo guardar la marca para evitar repetirlo."
+        : alreadyCounted ? "Este navegador ya está incluido en el total." : "Total global actualizado.";
     } catch {
       if (requestVersion !== speedCounterRequestVersion) return;
       speedTesterCount.textContent = "—";
       speedTesterCountStatus.dataset.state = "error";
-      speedTesterCountStatus.textContent = increment
+      speedTesterCountStatus.textContent = shouldIncrement
         ? "No se pudo actualizar el contador ahora; la medición de velocidad continúa."
         : "El contador global no está disponible ahora.";
     } finally {
       window.clearTimeout(timeoutId);
+      if (shouldIncrement) speedCounterIncrementPending = false;
     }
   }
 
