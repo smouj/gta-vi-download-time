@@ -29,7 +29,7 @@ Se usa GB decimal (`1 GB = 1.000.000.000 bytes`). La velocidad efectiva es la ve
 
 La referencia provisional de 210 GB se basa en una estimación publicada por [GamesRadar](https://www.gamesradar.com/games/grand-theft-auto/gta-6-is-a-210gb-download-says-playstation-store-sleuth/). Rockstar Games no había confirmado el tamaño final al actualizar esta página el 3 de noviembre de 2026. El valor es editable para que los usuarios puedan actualizarlo cuando la plataforma anuncie el tamaño definitivo.
 
-Las imágenes se cargan desde la [galería oficial de arte y fondos de GTA VI](https://www.rockstargames.com/VI/media/artwork-wallpapers) y no se guardan en este repositorio. GTA VI, sus logotipos, personajes e imágenes son propiedad de sus titulares, Rockstar Games / Take-Two Interactive. Este proyecto fan-made no reclama derechos ni licencia sobre ese material y no está afiliado, patrocinado ni respaldado por esas compañías. La calculadora es un proyecto independiente, humorístico y no oficial; la referencia de 210 GB no es una cifra confirmada por Rockstar.
+El logotipo y las imágenes se cargan desde la [galería oficial de arte y fondos de GTA VI](https://www.rockstargames.com/VI/media/artwork-wallpapers) y no se guardan en este repositorio. GTA VI, sus logotipos, personajes e imágenes son propiedad de sus titulares, Rockstar Games / Take-Two Interactive. Este proyecto fan-made no reclama derechos ni licencia sobre ese material y no está afiliado, patrocinado ni respaldado por esas compañías. La calculadora es un proyecto independiente, humorístico y no oficial; la referencia de 210 GB no es una cifra confirmada por Rockstar.
 
 ## Publicación
 
