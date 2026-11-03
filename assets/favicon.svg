@@ -6,7 +6,8 @@
       <stop offset="1" stop-color="#d94eaa" />
     </linearGradient>
   </defs>
-  <circle cx="32" cy="32" r="30" fill="#111117" stroke="url(#g)" stroke-width="2" />
-  <text x="32" y="39" fill="url(#g)" font-family="Arial,sans-serif" font-size="23" font-style="italic" font-weight="900" letter-spacing="-2" text-anchor="middle">VI</text>
+  <rect x="2" y="2" width="60" height="60" rx="17" fill="#111117" stroke="url(#g)" stroke-width="2" />
+  <text x="32" y="27" fill="#f7f5f3" font-family="Arial,sans-serif" font-size="16" font-weight="900" letter-spacing="-1.2" text-anchor="middle">GTA</text>
+  <text x="32" y="49" fill="url(#g)" font-family="Arial,sans-serif" font-size="23" font-style="italic" font-weight="900" letter-spacing="-1.5" text-anchor="middle">VI</text>
 </svg>
 
